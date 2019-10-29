@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="../../../../vendors/jquery-3.2.1/jquery-3.2.1.js"></script>
+    <script src="./avl-node.js"></script>
+    <script src="./avl-tree.js"></script>
+
+</head>
+<body>
+<pre id="results"></pre>
+</body>
+<script>
+    var testAvl = new AvlTree();
+    var values = [7,4,10,8,9,5,11,12,13,14,15,16,18,19,30,31,32,33,34,35,29,28]; // missing 0-3,6,17,20-27
+    var payload = "";
+    var testOutput = "";
+    var index = 0;
+
+    testOutput = testOutput + "\n *** initial values inserted into tree ***";
+    while (index in values)
+    {
+        payload = " " + values[index] + " ";
+        testAvl.insert(values[index], payload);
+        testOutput = testOutput + "\ninserting " + values[index] + "->\"" + payload + "\"";
+        index = index + 1;
+    }
+    testOutput = testOutput + "\n min value is 4, max value is 35, missing [6,17,20-27] within this range\n";
+    $("#results").text(testOutput);
+
+    var treeStructure = testAvl.getTreeStructure();
+    testOutput = testOutput + "\n------------------------------final tree structure--------------------------\n";
+    testOutput = testOutput + treeStructure;
+    testOutput = testOutput + "\n-----------------------------------------------------------------------------";
+
+    testOutput = testOutput + "\n\n\n*** AvlTree.get(key) -> payload Test ***\n";
+    index = 0;
+    var keys = [8,5,3,6,19,17,22,25,38];
+
+    while (index in keys) {
+        payload = testAvl.get(keys[index]);
+        if (payload === null) {
+            testOutput = testOutput + "\ntestAvl.get(" + keys[index] + ") returned \"null\"";
+        }
+        else {
+            testOutput = testOutput + "\ntestAvl.get(" + keys[index] + ") returned \"" + payload + "\"";
+        }
+        index = index + 1;
+        $("#results").text(testOutput);
+    }
+
+    testOutput = testOutput + "\n\n\n*** AvlTree.getNearestLessThan(key) -> payload Test ***\n";
+    index = 0;
+    while (index in keys) {
+        payload = testAvl.getNearestLessThan(keys[index]);
+        if (payload === null) {
+            testOutput = testOutput + "\ntestAvl.getNearestLessThan(" + keys[index] + ") returned \"null\"";
+        }
+        else {
+            testOutput = testOutput + "\ntestAvl.getNearestLessThan(" + keys[index] + ") returned \"" + payload + "\"";
+        }
+        index = index + 1;
+        $("#results").text(testOutput);
+    }
+
+    testOutput = testOutput + "\n\n\n*** AvlTree.getNearestGreaterThan(key) -> payload Test ***\n";
+    index = 0;
+    while (index in keys) {
+        payload = testAvl.getNearestGreaterThan(keys[index]);
+        if (payload === null) {
+            testOutput = testOutput + "\ntestAvl.getNearestGreaterThan(" + keys[index] + ") returned \"null\"";
+        }
+        else {
+            testOutput = testOutput + "\ntestAvl.getNearestGreaterThan(" + keys[index] + ") returned \"" + payload + "\"";
+        }
+        index = index + 1;
+        $("#results").text(testOutput);
+    }
+
+    testOutput = testOutput + "\n\n\n*** test property overwriteDuplicatesOnInsert default value true (overwrite should occur)";
+
+    payload = " **" + 7 + "** ";
+    testAvl.insert(7, payload);
+    testOutput = testOutput + "\ninsert(" + 7 + ",\"" + payload + "\")";
+    payload = testAvl.get(7);
+    testOutput = testOutput + "\ntestAvl.get(" + 7 + ")->\"" + payload + "\"";
+
+    testOutput = testOutput + "\n\n\n*** test property overwriteDuplicatesOnInsert updated to false (overwrite should not occur)";
+    testAvl.overwriteDuplicatesOnInsert = false;
+    payload = " !!!!!" + 7 + "!!!!! ";
+    testAvl.insert(7, payload);
+    testOutput = testOutput + "\ninsert(" + 7 + ",\"" + payload + "\")";
+    payload = testAvl.get(7);
+    testOutput = testOutput + "\ntestAvl.get(" + 7 + ")->\"" + payload + "\"";
+    $("#results").text(testOutput);
+</script>
+</html>

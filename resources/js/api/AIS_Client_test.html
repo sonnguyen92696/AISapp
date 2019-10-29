@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
+    <script type="text/javascript" src="AIS_Client.js"></script>
+    <script src="jquery-ui-1.12.1.custom/external/jquery/jquery.js"></script>
+    <meta charset="UTF-8">
+    <title>API Test</title>
+</head>
+<body>
+
+<!--
+<script>
+    var x = new AIS_Client("FA74Ir7V0H", "http://homepage.cs.latrobe.edu.au/16maritime01/api/v5");
+    x.getStaticVoyages(
+        undefined,
+        {}, // note how foo:bar or any other key-value pair gets ignored here because of url-key
+        function(data, status, xhr){console.log(xhr.getAllResponseHeaders()); console.log(xhr.getResponseHeader("Link")); console.log(data);}, // headers are only returned if run on a server, again a CORS issue
+        function(error){console.log(error)}
+    );
+</script>
+<script>
+    var x = new AIS_Client("FA74Ir7V0H", "http://homepage.cs.latrobe.edu.au/16maritime01/api/v5");
+    x.getResources(
+        "ais_voyages_static",
+        undefined,
+        {"session" : 314},
+        function(data){console.log(data)},
+        function(error){console.log(error)}
+    );
+</script>
+<script>
+    var x = new AIS_Client("FA74Ir7V0H", "http://homepage.cs.latrobe.edu.au/16maritime01/api/v5");
+    x.getResources(
+        "ais_voyages_static",
+        undefined,
+        {"url" : "http://homepage.cs.latrobe.edu.au/16maritime01/api/v5/ais_voyages_static.php/?passwd=FA74Ir7V0H&page=2", "foo" : "bar"}, // note how foo:bar or any other key-value pair gets ignored here because of url-key
+        function(data){console.log(data)},
+        function(error){console.log(error)}
+    );
+</script>
+<script>
+    var x = new AIS_Client("FA74Ir7V0H", "http://homepage.cs.latrobe.edu.au/16maritime01/api/v5");
+    x.getSessions(
+        undefined,
+        function(data){console.log(data)},
+        function(error){console.log(error)}
+    );
+</script>
+<script>
+    var x = new AIS_Client("FA74Ir7V0H", "http://homepage.cs.latrobe.edu.au/16maritime01/api/v5");
+    x.addResources(
+        "sessions",
+        [{'ownMMSI' : 'test', 'idsource' : 'DMY'}], // always make sure make this an array
+        function(data){console.log(data)},
+        function(error){console.log(error)}
+    );
+</script>
+<script>
+    var x = new AIS_Client("FA74Ir7V0H", "http://homepage.cs.latrobe.edu.au/16maritime01/api/v5");
+    x.addPlaylists(
+        [{'name' : 'BBB'},{'name' : 'CCC'}], // always make sure make this an array
+        function(data){console.log(data)},
+        function(error){console.log(error)}
+    );
+</script>
+<script> // DELETE does not work from local file due to CORS
+    var x = new AIS_Client("FA74Ir7V0H", "http://homepage.cs.latrobe.edu.au/16maritime01/api/v5");
+    x.deleteScenario(
+        46, // this WILL DELETE scenario with id 46, unless it doesn't exist or the supplied "password" has no delete-rights
+        function(data){console.log(data)},
+        function(error){console.log(error)}
+    );
+</script>
+<script> // UPDATE (aka PUT) does not work from local file due to CORS
+    var x = new AIS_Client("FA74Ir7V0H", "http://homepage.cs.latrobe.edu.au/16maritime01/api/v5");
+    x.updatePlaylist(
+        1,
+        {'name' : 'C'},
+        function(data){console.log(data)},
+        function(error){console.log(error)}
+    );
+</script>
+-->
+</body>
+</html>

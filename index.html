@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <script src="vendors/Cesium/Cesium.js"></script>
+    <style>
+        @import url(vendors/Cesium/Widgets/widgets.css);
+        html, body, #cesiumContainer {
+            width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden;
+        }
+    </style>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
+    <script src="vendors/jquery-ui-1.12.1.custom/external/jquery/jquery.js"></script>
+    <script src="vendors/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+
+    <script src="resources/js/UI/Select_Region_UI.js"></script>
+    <script src="resources/js/utils/moment.min.js"></script>
+    <script src="resources/js/utils/avl-tree/avl-node.js"></script>
+    <script src="resources/js/utils/avl-tree/avl-tree.js"></script>
+    <script src="resources/js/resolvers/ColregsShipPath.js"></script>
+    <script src="resources/js/utils/CoordinateConversion.js"></script>
+    <script src="resources/js/utils/LatLongHelperFunctions.js"></script>
+    <script src="resources/js/COLREGS/COLREGS.js"></script>
+
+    <script src="resources/js/api/sample_data.js"></script>
+    <script src="resources/js/api/AIS_Client.js"></script>
+    <script src="resources/js/api/AIS_Client_Local.js"></script>
+    <script src="resources/js/api/II_Client_Local.js"></script>
+    <script src="resources/js/api/IInterval_Client_Local.js"></script>
+
+    <script src="resources/js/utils/polyfill.js"></script>
+    <script src="resources/js/utils/utils.js"></script>
+    <script src="resources/js/utils/LatLongHelperFunctions.js"></script>
+    <script src="resources/js/utils/CoordinateConversion.js"></script>
+
+    <script src="resources/js/models/Ship.js"></script>
+    <script src="resources/js/models/Store.js"></script>
+
+    <script src="resources/js/resolvers/CesiumShipResolver.js"></script>
+    <script src="resources/js/resolvers/CesiumCOLREGSResolver.js"></script>
+    <script src="resources/js/resolvers/CesiumViewerResolver.js"></script>
+    <script src="resources/js/resolvers/CesiumCloseEncountersResolver.js"></script>
+    <script src="resources/js/resolvers/CesiumCloseIntervalsResolver.js"></script>
+    <script src="resources/js/resolvers/CesiumWaypointResolver.js"></script>
+
+    <script src="resources/js/UI/ui_plugins/CloseInterestingIncidentsPlugin.js"></script>
+    <script src="resources/js/UI/ui_plugins/DefaultShipViewerPlugin.js"></script>
+    <script src="resources/js/UI/ui_plugins/COLREGSPlugin.js"></script>
+
+    <script src="resources/js/UI/Application.js"></script>
+
+    <link rel="stylesheet" href="vendors/jquery-ui-1.12.1.custom/jquery-ui.css">
+    <link rel="stylesheet" href="resources/css/AISapp.css">
+    <meta charset="UTF-8">
+    <title>AISapp UI</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+
+    <!--- Modals ---->
+    <div class="dark modal-form" id="vessel_information_modal" title="Vessel Information" >
+        <h2>Vessel Information</h2>
+        <div id="vessel_information">            
+            <div class="contents"></div>
+        </div>
+    </div>
+
+
+    <div class="sidebar">
+
+        <!-------------->
+        <!-- TOOLS UI -->
+        <!-------------->
+        <div class="dark" id="rectHome">
+            <img class="logo" src="./resources/img/aisapp-logo.png">
+            <p id="AISapp">AISapp v. 0.1</p>
+            <input id="settings" type="image" src="resources/img/settings_icon.png">
+        </div>
+
+        <!----------------->
+        <!-- PLAYLIST UI -->
+        <!----------------->
+        <div class="dark" id="rectPlaylist">
+            <h2>Playlist</h2>
+            <select id="selectmenuP" class="fill">
+                <option selected="selected" value="-1">... select a playlist</option>
+            </select><br>
+            <button id="btnCreateP" class="icon-button"><i class="material-icons">add_box</i></button>
+            <button id="btnExportP" class="icon-button"><i class="material-icons">cloud_download</i></button>
+            <button id="btnDeleteP" class="icon-button"><i class="material-icons">delete</i></button>
+        </div>
+
+        <div class="dark modal-form" id="rectPlaylistOpen">
+            <h2>Open Playlist</h2>
+            <div>
+                <label for="input_PCO_name">Playlist Name:</label>
+                <input type="text" id="input_PCO_name" class="fill75" value="">
+                <button id="btn_PO_Search" class="ui-button ui-widget ui-corner-all align-right">Search</button>
+            </div>
+            <div>
+                <select id="list_PO" size="5" class="fill">
+                    <option>text1</option>
+                    <option>text2</option>
+                    <option>text3</option>
+                    <option>text4</option>
+                    <option>text5</option>
+                </select>
+            </div>
+            <div>
+                <button id="btn_PO_Open" class="ui-button ui-widget ui-corner-all align-right">Open</button>
+                <button id="btn_PO_Cancel" class="ui-button ui-widget ui-corner-all align-right">Cancel</button>
+            </div>
+        </div>
+
+        <div class="dark modal-form" id="rectPlaylistDel">
+            <h2>Delete Playlist</h2>
+            <div>
+                <p id="txt_PD">Are you sure you want to delete the current playlist and its scenarios?</p>
+            </div>
+            <!--
+            <div>
+                <input type="checkbox" name="cb_PD_scenarios" id="cb_PD_scenarios">
+                <label for="cb_PD_scenarios">Also delete all included scenarios.</label>
+            </div>
+            -->
+            <div>
+                <button id="btn_PD_Del" class="ui-button ui-widget ui-corner-all align-right">Delete</button>
+                <button id="btn_PD_Cancel" class="ui-button ui-widget ui-corner-all align-right">Cancel</button>
+            </div>
+        </div>
+
+        <div class="dark modal-form" id="rectPlaylistCreate">
+            <h2>Create Playlist</h2>
+
+            <div>
+                <label for="input_PCC_name">Playlist Name:</label>
+                <input type="text" id="input_PCC_name" class="fill100" value="">
+            </div>
+            <div>
+                <input type="checkbox" name="cb_PC" id="cb_PC">
+                <label for="cb_PC">Include current scenario</label>
+            </div>
+            <div>
+                <button id="btn_PC_Save" class="ui-button ui-widget ui-corner-all align-right">Save</button>
+                <button id="btn_PC_Cancel" class="ui-button ui-widget ui-corner-all align-right">Cancel</button>
+            </div>
+        </div>
+
+        <div class="dark modal-form" id="rectPlaylistExport">
+            <h2>Export Playlist</h2>
+            <div>
+                <label for="input_PE_file">Playlist Name:</label>
+                <input type="text" id="input_PE_file" class="fill85" value="">
+            </div>
+            <div>
+                <button id="btn_PE_Browse" class="ui-button ui-widget ui-corner-all align-right">...</button>
+                <button id="btn_PE_Save" class="ui-button ui-widget ui-corner-all align-right">Save</button>
+                <button id="btn_PE_Cancel" class="ui-button ui-widget ui-corner-all align-right">Cancel</button>
+            </div>
+        </div>
+
+
+
+
+        <!----------------->
+        <!-- SCENARIO UI -->
+        <!----------------->
+        <div class="dark" id="rectScenario">
+            <h2>Scenario</h2>
+            <select id="selectmenuS" class="fill"></select><br>
+            <button id="btnPrevS" class="icon-button"><i class="material-icons">skip_previous</i></button>
+            <button id="btnNextS" class="icon-button"><i class="material-icons">skip_next</i></button>
+            <!--<button id="btnCreateS" class="icon-button"><i class="material-icons">add_box</i></button>-->
+            <button id="btnSaveS" class="icon-button"><i class="material-icons">save</i></button>
+            <button id="btnSaveAsS" class="icon-button"><i class="material-icons">add_box</i></button>
+            <button id="btnDeleteS" class="icon-button"><i class="material-icons">delete</i></button>
+        </div>
+
+        <div class="dark modal-form" id="rectScenarioDiscard">
+            <h2>Warning - Discard Changes</h2>
+
+            <div>
+                <p>Are you sure you want to open a new scenario before saving changes to the current one?
+                    All unsaved changes will be lost.</p>
+            </div>
+            <div>
+                <button id="btn_D_Open" class="ui-button ui-widget ui-corner-all align-right" >Open</button>
+                <button id="btn_D_Cancel" class="ui-button ui-widget ui-corner-all align-right" >Cancel</button>
+            </div>
+        </div>
+
+        <div class="dark modal-form" id="rectScenarioSaveAs">
+            <h2>Save Scenario As</h2>
+
+            <div>
+                <input type="text" id="input_SSA_file" class="fill60" value="" placeholder="Scenario Name">
+            </div>
+            <div>
+                <button id="btn_SSA_Save" class="ui-button ui-widget ui-corner-all align-right" >Save</button>
+                <button id="btn_SSA_Cancel" class="ui-button ui-widget ui-corner-all align-right" >Cancel</button>
+            </div>
+
+        </div>
+
+        <div class="dark modal-form" id="rectScenarioDelete">
+            <h2>Delete Scenario</h2>
+
+            <div>
+                <p id="txt_DS">Are you sure you want to delete the selected scenario?</p>
+            </div>
+            <div>
+                <button id="btn_DS_Delete" class="ui-button ui-widget ui-corner-all align-right" >Delete</button>
+                <button id="btn_DS_Cancel" class="ui-button ui-widget ui-corner-all align-right" >Cancel</button>
+            </div>
+        </div>
+
+        <div class="dark modal-form" id="rectScenarioCreate">
+            <h2>Create Scenario</h2>
+            <div id="tab_SC">
+                <ul>
+                    <li><a href="#tabs-session">Session</a></li>
+                    <li><a href="#tabs-maneuverability">Maneuverability</a></li>
+                    <li><a href="#tabs-busy">Busy Day</a></li>
+                    <li><a href="#tabs-close">Close Encounter</a></li>
+                </ul>
+                <div id="tabs-session">
+                    <p>This will add all AIS messages of a session to the workspace.</p>
+                    <div>
+                        <label for="input_SCS_search">Session Name:</label><br/>
+                        <input type="text" id="input_SCS_search" class="fill80" value="">
+                        <button id="btn_SCS_search" class="ui-button ui-widget ui-corner-all align-right" >Search</button>
+                    </div>
+                    <div>
+                        <select id="list_SCS" size="5">
+                            <option>text1</option>
+                            <option>text2</option>
+                            <option>text3</option>
+                            <option>text4</option>
+                            <option>text5</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button id="btn_SCS_Display" class="ui-button ui-widget ui-corner-all align-right" >Display</button>
+                        <button id="btn_SCS_Cancel" class="ui-button ui-widget ui-corner-all align-right" >Cancel</button>
+                        <br/>
+                        <br/>
+                    </div>
+                </div>
+                <div id="tabs-maneuverability">
+                    <div>
+                        <label for="selectmenu_SCM_session">Scenario</label>
+                        <select id="selectmenu_SCM_session" class="align-right">
+                            <option selected="selected">Session 1</option>
+                            <option>Session 2</option>
+                            <option>Session 3</option>
+                        </select>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="cb_SCM_NuC">
+                        <label for="cb_SCM_NuC">Not under Command</label>
+                        <input type="checkbox" id="cb_SCM_CbD">
+                        <label for="cb_SCM_CbD">Constrained by draught</label>
+                        <input type="checkbox" id="cb_SCM_EiF">
+                        <label for="cb_SCM_EiF">Engaged in fishing</label>
+                        <input type="checkbox" id="cb_SCM_A">
+                        <label for="cb_SCM_A">Aground</label>
+                        <input type="checkbox" id="cb_SCM_RM">
+                        <label for="cb_SCM_RM">Restricted Maneuverability</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="cb_SCM_Proximity">
+                        <label for="cb_SCM_Proximity">AND proximity to other vessel &#60;</label>
+                        <input type="text" id="input_SCM_Proximity" class="fill10" value="1000">
+                        <select id="selectmenu_SCM_uom">
+                            <option selected="selected">m</option>
+                            <option>km</option>
+                            <option>ft</option>
+                            <option>mi</option>
+                        </select>
+                        <button id="btn_SCM_Find" class="ui-button ui-widget ui-corner-all align-right" >Find</button>
+                    </div>
+                    <div>
+                        <select id="list_SCM" class="fill" size="5">
+                            <option>MMSI | Latitude | Longitude | Date</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button id="btn_SCM_All" class="ui-button ui-widget ui-corner-all" >Select All</button>
+                        <button id="btn_SCM_None" class="ui-button ui-widget ui-corner-all" >Select None</button>
+                        <button id="btn_SCM_Clear" class="ui-button ui-widget ui-corner-all" >Clear</button>
+                        <button id="btn_SCM_Display" class="ui-button ui-widget ui-corner-all align-right" >Display</button>
+                        <button id="btn_SCM_Cancel" class="ui-button ui-widget ui-corner-all align-right" >Cancel</button>
+                    </div>
+                </div>
+                <div id="tabs-busy">
+                    <div>
+                        <label for="selectmenu_SCB_session">Scenario</label>
+                        <select id="selectmenu_SCB_session" class="align-right">
+                            <option selected="selected">Session 1</option>
+                            <option>Session 2</option>
+                            <option>Session 3</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="input_SCB_more">More than</label>
+                        <input type="text" id="input_SCB_more" class="fill10" value="3">
+                        <label for="input_SCB_ships">ships within</label>
+                        <input type="text" id="input_SCB_ships" class="fill10" value="1000">
+                        <select id="selectmenu_SCB_uom">
+                            <option selected="selected">m</option>
+                            <option>km</option>
+                            <option>ft</option>
+                            <option>mi</option>
+                        </select>
+                        <button id="btn_SCB_Find" class="ui-button ui-widget ui-corner-all align-right" >Find</button>
+                    </div>
+                    <div>
+                        <select id="list_SCB" class="fill" size="5">
+                            <option>MMSI | Latitude | Longitude | Date</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button id="btn_SCB_All" class="ui-button ui-widget ui-corner-all" >Select All</button>
+                        <button id="btn_SCB_None" class="ui-button ui-widget ui-corner-all" >Select None</button>
+                        <button id="btn_SCB_Clear" class="ui-button ui-widget ui-corner-all" >Clear</button>
+                        <button id="btn_SCB_Display" class="ui-button ui-widget ui-corner-all align-right" >Display</button>
+                        <button id="btn_SCB_Cancel" class="ui-button ui-widget ui-corner-all align-right" >Cancel</button>
+                    </div>
+                </div>
+                <div id="tabs-close">
+                    <div>
+                        <label for="selectmenu_SCC_session">Scenario</label>
+                        <select id="selectmenu_SCC_session" class="align-right">
+                            <option selected="selected">Session 1</option>
+                            <option>Session 2</option>
+                            <option>Session 3</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="input_SCC_ships">Ships within</label>
+                        <input type="text" id="input_SCC_ships" class="fill10" value="1000">
+                        <select id="selectmenu_SCC_uom">
+                            <option selected="selected">m</option>
+                            <option>km</option>
+                            <option>ft</option>
+                            <option>mi</option>
+                        </select>
+                        <button id="btn_SCC_Find" class="ui-button ui-widget ui-corner-all align-right" >Find</button>
+                    </div>
+                    <div>
+                        <select id="list_SCC" class="fill" size="5">
+                            <option>MMSI | Latitude | Longitude | Date</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button id="btn_SCC_All" class="ui-button ui-widget ui-corner-all" >Select All</button>
+                        <button id="btn_SCC_None" class="ui-button ui-widget ui-corner-all" >Select None</button>
+                        <button id="btn_SCC_Clear" class="ui-button ui-widget ui-corner-all" >Clear</button>
+                        <button id="btn_SCC_Display" class="ui-button ui-widget ui-corner-all align-right" >Display</button>
+                        <button id="btn_SCC_Cancel" class="ui-button ui-widget ui-corner-all align-right" >Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!---------------------->
+        <!-- MISCELLANEOUS UI -->
+        <!---------------------->
+        <div class="dark" id="rectMisc">
+            <h2>Visualisation</h2>
+            <select id="selectmenuView" class="fill"></select><br>
+            <div id="viewControlPanel"></div>
+            <button id="btn_Misc_apply" class="icon-button align-right" ><i class="material-icons">refresh</i></button>
+        </div>
+
+        <div class="time-period-region  dark" id="rectTools" >
+            <h2>Time Period &#38; Region</h2>
+            <h3><button id="btn_TPR_select" class="icon-button" ><i class="material-icons">tab_unselected</i></button>Spatial Region</h3>
+            <label for="input_TPR_latMin">Lat. Min:</label>
+            <input class="center" type="text" id="input_TPR_latMin"> <br>
+            <label for="input_TPR_latMax">Lat. Max:</label>
+            <input class="center" type="text" id="input_TPR_latMax"> <br>
+            <label for="input_TPR_longMin">Lon. Min:</label>
+            <input class="center" type="text" id="input_TPR_longMin"> <br>
+            <label for="input_TPR_longMax">Lon. Max:</label>
+            <input class="center" type="text" id="input_TPR_longMax"><br>
+
+
+            <h3>Time Range</h3>
+            <label for="btn_TPR_select_start_on_time_line">Start:</label>
+            <input type="text"  id="dp_TPR_Start">
+            <button id="btn_TPR_select_start_on_time_line" class="icon-button text-button" >Pick</button><br>
+
+            <label for="btn_TPR_select_start_on_time_line">End:</label>
+            <input type="text" id="dp_TPR_End">
+            <button id="btn_TPR_select_end_on_time_line" class="icon-button text-button" >Pick</button>
+
+        </div>
+    </div>
+    <div class="cesium-container" id="cesium">
+    </div>
+
+
+
+<!------------->
+<!-- SCRIPTS -->
+<!------------->
+<script src="resources/js/UI/Playlist_UI.js"></script>
+<script src="resources/js/UI/Scenario_UI.js"></script>
+<script src="resources/js/UI/Misc_UI.js"></script>
+<script src="resources/js/UI/Tools_UI.js"></script>
+<script src="resources/js/UI/General_UI.js"></script>
+
+
+</body>
+</html>

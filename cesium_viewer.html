@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Use correct character set. -->
+  <meta charset="utf-8">
+  <!-- Tell IE to use the latest, best version. -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <title>Hello World!</title>
+  <script src="vendors/Cesium/Cesium.js"></script>
+  <style>
+      @import url(vendors/Cesium/Widgets/widgets.css);
+      html, body, #cesiumContainer {
+          width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden;
+      }
+  </style>
+  <script src="resources/js/utils/moment.min.js"></script>
+  <script src="resources/js/utils/avl-tree/avl-node.js"></script>
+  <script src="resources/js/utils/avl-tree/avl-tree.js"></script>
+  <script src="resources/js/resolvers/ColregsShipPath.js"></script>
+  <script src="resources/js/utils/CoordinateConversion.js"></script>
+  <script src="resources/js/utils/LatLongHelperFunctions.js"></script>
+  <script src="resources/js/COLREGS/COLREGS.js"></script>
+</head>
+<body>
+  <div id="cesiumContainer"></div>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
+  
+  <script src="resources/js/api/sample_data.js"></script>
+  <script src="resources/js/api/AIS_Client.js"></script>
+  <script src="resources/js/api/AIS_Client_Local.js"></script>
+  <script src="resources/js/api/II_Client_Local.js"></script>
+  <script src="resources/js/api/IInterval_Client_Local.js"></script>
+  
+  <script src="resources/js/utils/polyfill.js"></script>
+  <script src="resources/js/utils/utils.js"></script>
+  <script src="resources/js/utils/LatLongHelperFunctions.js"></script>
+  <script src="resources/js/utils/CoordinateConversion.js"></script>
+  
+  <script src="resources/js/models/Ship.js"></script>
+  <script src="resources/js/models/Store.js"></script>
+  
+  <script src="resources/js/resolvers/CesiumShipResolver.js"></script>
+  <script src="resources/js/resolvers/CesiumCOLREGSResolver.js"></script>
+  <script src="resources/js/resolvers/CesiumViewerResolver.js"></script>
+  <script src="resources/js/resolvers/CesiumCloseEncountersResolver.js"></script>
+  <script src="resources/js/resolvers/CesiumCloseIntervalsResolver.js"></script>
+  <script src="resources/js/resolvers/CesiumWaypointResolver.js"></script>
+
+  <script>
+
+    window.onload = function(){
+
+      Cesium.BingMapsApi.defaultKey = "AgPiiYJxenn6wUtrNpRc2Om2HBSzI1PeUdPNkyvhvOSAhCXvLCMjC3swWtpaVs6j"
+      var viewer = new Cesium.Viewer('cesiumContainer');
+
+      //compute filter from this pages URL parameters
+      var filter = getQueryParameters(location.href);
+
+      var ais_client;
+
+      if( filter.hasOwnProperty("local")){
+        ais_client = new AIS_Client_Local( ais_messages );
+        delete filter.local
+      }else {
+        //create the client
+        ais_client = new AIS_Client(
+          "FA74Ir7V0H",
+           "https://maritime.latrobe.edu.au/api/v5/");
+      }
+
+      //create the ais store from
+      var store = new AISStore(ais_client);
+
+      //create our Cesium Resolvers
+
+        // shipViewTypeResolver is a ShipResolver by default,
+        // but if we include filter.decorations === "colregs" then we use that to display the ships
+      var shipViewTypeResolver = new ShipResolver( {}, viewer);
+
+      var viewResolver = new ViewerResolver(viewer);
+
+      //activate the show close_encounters resolver if requested
+	  if(filter.hasOwnProperty("decorations") ){
+
+          if( filter.decorations === "colregs" ){
+              shipViewTypeResolver = new COLREGSResolver( {}, viewer );
+          }
+
+		if( filter.decorations === "close_encounters" ){		
+		  var closeEncountersResolver = new CloseEncountersResolver({
+			distance: filter.distance,
+			viewer: viewer,
+			store: store,
+			ais_client: new II_Client_Local(store, { maxSeconds: 15 })			
+		  });		  
+		  store.register( closeEncountersResolver );
+		  delete filter.distance;		  
+		}
+
+        if( filter.decorations === "close_intervals" ){
+            var closeIntervalsResolver = new CloseIntervalsResolver({
+                distance: filter.distance,
+                viewer: viewer,
+                store: store,
+                ais_client: new IInterval_Client_Local(store, { maxSeconds: 30 })
+            });
+
+            store.register( closeIntervalsResolver );
+            delete filter.distance;
+        }
+
+		delete filter.decorations
+	  }
+
+
+        //activate the show waypoints resolver if requested
+	  if(filter.hasOwnProperty("show_waypoints") ){
+		if( !!filter.show_waypoints ){		
+		  var waypointResolver = new CesiumWaypointResolver({
+			distance: filter.distance,
+			viewer: viewer,
+			store: store,
+			ais_client: ais_client			
+		  });		  
+		  store.register( waypointResolver )
+		}
+		
+		delete filter.show_waypoints	  
+	  }
+	  
+
+      //link the resolvers to the AIS store
+      store.register( viewResolver );
+	  store.register( shipViewTypeResolver );
+
+      //load the filter from the web service
+      store.setFilter(undefined, filter)
+
+    }
+
+  </script>
+</body>
+</html>

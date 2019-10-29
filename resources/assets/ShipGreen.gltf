@@ -1,0 +1,314 @@
+{
+  "accessors": {
+    "accessor_index_0": {
+      "bufferView": "bufferView_1",
+      "byteOffset": 0,
+      "byteStride": 0,
+      "componentType": 5123,
+      "count": 6,
+      "type": "SCALAR",
+      "min": [
+        0
+      ],
+      "max": [
+        3
+      ]
+    },
+    "accessor_position": {
+      "bufferView": "bufferView_0",
+      "byteOffset": 0,
+      "byteStride": 0,
+      "componentType": 5126,
+      "count": 4,
+      "min": [
+        -1,
+        0,
+        -1
+      ],
+      "max": [
+        1,
+        0,
+        1
+      ],
+      "type": "VEC3"
+    },
+    "accessor_normal": {
+      "bufferView": "bufferView_0",
+      "byteOffset": 48,
+      "byteStride": 0,
+      "componentType": 5126,
+      "count": 4,
+      "type": "VEC3",
+      "min": [
+        0,
+        1,
+        0
+      ],
+      "max": [
+        0,
+        1,
+        0
+      ]
+    },
+    "accessor_uv": {
+      "bufferView": "bufferView_0",
+      "byteOffset": 96,
+      "byteStride": 0,
+      "componentType": 5126,
+      "count": 4,
+      "type": "VEC2",
+      "min": [
+        0.00009999999747378752,
+        0.00009999999747378752
+      ],
+      "max": [
+        0.9998999834060669,
+        0.9998999834060669
+      ]
+    }
+  },
+  "asset": {
+    "generator": "OBJ2GLTF",
+    "premultipliedAlpha": true,
+    "profile": {
+      "api": "WebGL",
+      "version": "1.0"
+    },
+    "version": "1.0"
+  },
+  "buffers": {
+    "buffer_0": {
+      "type": "arraybuffer",
+      "byteLength": 140,
+      "uri": "data:application/octet-stream;base64,AACAvwAAAAAAAIA/AACAPwAAAAAAAIA/AACAPwAAAAAAAIC/AACAvwAAAAAAAIC/AAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAF7fROHL5fz9y+X8/cvl/P3L5fz8Xt9E4F7fROBe30TgAAAEAAgAAAAIAAwA="
+    }
+  },
+  "bufferViews": {
+    "bufferView_0": {
+      "buffer": "buffer_0",
+      "byteLength": 128,
+      "byteOffset": 0,
+      "target": 34962
+    },
+    "bufferView_1": {
+      "buffer": "buffer_0",
+      "byteLength": 12,
+      "byteOffset": 128,
+      "target": 34963
+    }
+  },
+  "images": {
+    "shipGreen": {
+      "uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZdEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41Ljg3O4BdAAAEmElEQVR4XuWbPWgUQRTHj+PAiHAGLAxioYgQBDGiSECEIIIKFilthJSWKe20s0wZsInYpJKUKVOmTJkyZbCyDFbr/N6+WcfN3GU/ZndnNw9+7GV2d+Y/d/Px5s1k1LFtGj4qfL5UtmI4MyQKn0m7FLZgODIk9z6l8FnTuDd4+2JIri2PkrdnKXwmTe8N2lYNyXhhlDw/HCXvkhQ+k8Y9fWaQtmg4MST3P/+rvIU07l29I1eeHZztGJLpStrs818Aadzjmclk8kPeGJC9MUgzXzs+X3kL95yuwDuDMEb2U0PyYMtfcRee4dkrS3IdxKywbUgWV/0V9sGzvDOdTr9LDj22NcOFTT9PriuQRy+N5iuj/sNtf0XnwTu8q7NCL7vClkFGdl8Fi2Bnhbubcu2VZQ7PiyN/5YrAu05X6JWDlPn6voqVwa4VtDX0wljaSt/1OTxlIQ8dByD6ZfOSQZa5T/f8FaoCeZGndgfKiNZkzr+57q9IHciTvI2b/E1KitAIaJSe84uS8w2iDJ7sGWTK8lUgBDodAmVFZdmv/+rULz4E5B1rK9g1NPrrW5xWQJlRmIz8Tf/6FqcVMNtEMSOIy3t7wy+4CSiLMrXsTo3Qlcz7dVzeslAWZWrZnYbPxOtrYt6/COsXqIbOTHz+kF5fUax3qBo6MVnxEbryCWwDDZtBJytFifKGWPFVxdlVQkurtmAdkpcnfnFtQNloUC2tRo02DMmNNb+wNkEDWlRTa7ZvqBTrC42NHaqmVmxpPB7/MddWPL+LQANatBu04hlyoCGK5m9xugHaGrcDQxTN3+J0A7Q1apnr+/q3X0wXoAVNqq1R1zia0T9PW7OBrPuLbHK2jd1UVY2NGI6GNP8unZ9ZWKdINTbiFMkeP+d5fAJiwDlr1MjZAgl8+I63xII9ZqNag5ssfVcP/IXHANrQqFqDGlOLeFshtruaAm12kaaag9m6odQpj66wp0tUczCT/t9G2LsuTtg86DjQWeirLE2EyrL5Pyb3dxY5tziIPyCxP/bofQXGiHOeIEisUELfbW581MXZOAkSMo/W/59F6HXBseG/092xg1Y0q/ZaJg4QxOwA5UGr1a11qGxy0rPOWb+usGcMtQ6VrfYAyEbm4910oXLrfRq4sKM0Xpv13EjjHs/wLO/U2XANNRDK7k+ZAZB5+NFOunnp+OWzwFkRJ2sW5EFe5FnGD3EGwlq7RiKuyC/xbD/99Xg+B0flCVby/0BEbWmSvuMtpHGPZ3iWd+SYvQtlUJZPg4vdQq9zwFI8wHkrQNL5ph3Hw8IhJmJzIeL05EFecgjLQpmUPU8b2rUVVvII5eCTbwC0FXd2Z4GT4fS3JjcnyJsy5BQ6oGHWF+EMhJUOVEkEOD8AMjiZdLdp0lSDLj0LGmXKHgXwRaDN1eoMhJUixbIE5tslM3UuDklTGB+6qHje0JANpMwq1mlDu6ZXWhpLZZ/8PDe48eu3sgVV0tCUtUw0o13/pi6lTZbAk+tZJvz91dDozktNQxsafdpLmQyAhl96pa8tG/piaLXjg61DqYGQ0Za+9UGvfTW3DrnZaTT6C8OWEByFqFTOAAAAAElFTkSuQmCC"
+    }
+  },
+  "materials": {
+    "material_ShipGreen": {
+      "name": "ShipGreen",
+      "extensions": {},
+      "values": {
+        "ambient": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "diffuse": "texture_shipGreen",
+        "emission": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "specular": [
+          0.5,
+          0.5,
+          0.5,
+          1
+        ],
+        "shininess": 96.078431,
+        "transparency": 1
+      },
+      "technique": "technique0"
+    }
+  },
+  "meshes": {
+    "mesh_ShipGreen": {
+      "name": "ShipGreen",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": "accessor_position",
+            "NORMAL": "accessor_normal",
+            "TEXCOORD_0": "accessor_uv"
+          },
+          "indices": "accessor_index_0",
+          "material": "material_ShipGreen",
+          "mode": 4
+        }
+      ]
+    }
+  },
+  "nodes": {
+    "rootNode": {
+      "children": [],
+      "meshes": [
+        "mesh_ShipGreen"
+      ],
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    }
+  },
+  "samplers": {
+    "sampler_0": {
+      "magFilter": 9729,
+      "minFilter": 9986,
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  },
+  "scene": "scene_ShipGreen",
+  "scenes": {
+    "scene_ShipGreen": {
+      "nodes": [
+        "rootNode"
+      ]
+    }
+  },
+  "textures": {
+    "texture_shipGreen": {
+      "format": 6407,
+      "internalFormat": 6407,
+      "sampler": "sampler_0",
+      "source": "shipGreen",
+      "target": 3553,
+      "type": 5121
+    }
+  },
+  "extensionsUsed": [],
+  "animations": {},
+  "cameras": {},
+  "techniques": {
+    "technique0": {
+      "attributes": {
+        "a_position": "position",
+        "a_normal": "normal",
+        "a_texcoord_0": "texcoord_0"
+      },
+      "parameters": {
+        "modelViewMatrix": {
+          "semantic": "MODELVIEW",
+          "type": 35676
+        },
+        "projectionMatrix": {
+          "semantic": "PROJECTION",
+          "type": 35676
+        },
+        "normalMatrix": {
+          "semantic": "MODELVIEWINVERSETRANSPOSE",
+          "type": 35675
+        },
+        "ambient": {
+          "type": 35666
+        },
+        "diffuse": {
+          "type": 35678
+        },
+        "emission": {
+          "type": 35666
+        },
+        "specular": {
+          "type": 35666
+        },
+        "shininess": {
+          "type": 5126
+        },
+        "transparency": {
+          "type": 5126
+        },
+        "position": {
+          "semantic": "POSITION",
+          "type": 35665
+        },
+        "normal": {
+          "semantic": "NORMAL",
+          "type": 35665
+        },
+        "texcoord_0": {
+          "semantic": "TEXCOORD_0",
+          "type": 35664
+        }
+      },
+      "program": "program0",
+      "states": {
+        "enable": [
+          2929,
+          3042
+        ],
+        "depthMask": false,
+        "functions": {
+          "blendEquationSeparate": [
+            32774,
+            32774
+          ],
+          "blendFuncSeparate": [
+            1,
+            771,
+            1,
+            771
+          ]
+        }
+      },
+      "uniforms": {
+        "u_modelViewMatrix": "modelViewMatrix",
+        "u_projectionMatrix": "projectionMatrix",
+        "u_normalMatrix": "normalMatrix",
+        "u_ambient": "ambient",
+        "u_diffuse": "diffuse",
+        "u_emission": "emission",
+        "u_specular": "specular",
+        "u_shininess": "shininess",
+        "u_transparency": "transparency"
+      }
+    }
+  },
+  "programs": {
+    "program0": {
+      "attributes": [
+        "a_position",
+        "a_normal",
+        "a_texcoord_0"
+      ],
+      "fragmentShader": "fragmentShader0",
+      "vertexShader": "vertexShader0"
+    }
+  },
+  "shaders": {
+    "vertexShader0": {
+      "type": 35633,
+      "uri": "data:text/plain;base64,cHJlY2lzaW9uIGhpZ2hwIGZsb2F0Owp1bmlmb3JtIG1hdDQgdV9tb2RlbFZpZXdNYXRyaXg7CnVuaWZvcm0gbWF0NCB1X3Byb2plY3Rpb25NYXRyaXg7CnVuaWZvcm0gbWF0MyB1X25vcm1hbE1hdHJpeDsKYXR0cmlidXRlIHZlYzMgYV9wb3NpdGlvbjsKdmFyeWluZyB2ZWMzIHZfcG9zaXRpb25FQzsKYXR0cmlidXRlIHZlYzMgYV9ub3JtYWw7CnZhcnlpbmcgdmVjMyB2X25vcm1hbDsKYXR0cmlidXRlIHZlYzIgYV90ZXhjb29yZF8wOwp2YXJ5aW5nIHZlYzIgdl90ZXhjb29yZF8wOwp2b2lkIG1haW4odm9pZCkgewogIHZlYzQgcG9zID0gdV9tb2RlbFZpZXdNYXRyaXggKiB2ZWM0KGFfcG9zaXRpb24sMS4wKTsKICB2X3Bvc2l0aW9uRUMgPSBwb3MueHl6OwogIGdsX1Bvc2l0aW9uID0gdV9wcm9qZWN0aW9uTWF0cml4ICogcG9zOwogIHZfbm9ybWFsID0gdV9ub3JtYWxNYXRyaXggKiBhX25vcm1hbDsKICB2X3RleGNvb3JkXzAgPSBhX3RleGNvb3JkXzA7Cn0K"
+    },
+    "fragmentShader0": {
+      "type": 35632,
+      "uri": "data:text/plain;base64,cHJlY2lzaW9uIGhpZ2hwIGZsb2F0Owp1bmlmb3JtIHZlYzQgdV9hbWJpZW50Owp1bmlmb3JtIHNhbXBsZXIyRCB1X2RpZmZ1c2U7CnVuaWZvcm0gdmVjNCB1X2VtaXNzaW9uOwp1bmlmb3JtIHZlYzQgdV9zcGVjdWxhcjsKdW5pZm9ybSBmbG9hdCB1X3NoaW5pbmVzczsKdW5pZm9ybSBmbG9hdCB1X3RyYW5zcGFyZW5jeTsKdmFyeWluZyB2ZWMzIHZfcG9zaXRpb25FQzsKdmFyeWluZyB2ZWMzIHZfbm9ybWFsOwp2YXJ5aW5nIHZlYzIgdl90ZXhjb29yZF8wOwp2b2lkIG1haW4odm9pZCkgewogIHZlYzMgbm9ybWFsID0gbm9ybWFsaXplKHZfbm9ybWFsKTsKICB2ZWM0IGRpZmZ1c2UgPSB0ZXh0dXJlMkQodV9kaWZmdXNlLCB2X3RleGNvb3JkXzApOwogIHZlYzMgZGlmZnVzZUxpZ2h0ID0gdmVjMygwLjAsIDAuMCwgMC4wKTsKICB2ZWMzIHNwZWN1bGFyID0gdV9zcGVjdWxhci5yZ2I7CiAgdmVjMyBzcGVjdWxhckxpZ2h0ID0gdmVjMygwLjAsIDAuMCwgMC4wKTsKICB2ZWMzIGVtaXNzaW9uID0gdV9lbWlzc2lvbi5yZ2I7CiAgdmVjMyBhbWJpZW50ID0gdV9hbWJpZW50LnJnYjsKICB2ZWMzIHZpZXdEaXIgPSAtbm9ybWFsaXplKHZfcG9zaXRpb25FQyk7CiAgdmVjMyBhbWJpZW50TGlnaHQgPSB2ZWMzKDAuMCwgMC4wLCAwLjApOwogIGFtYmllbnRMaWdodCArPSB2ZWMzKDAuMiwgMC4yLCAwLjIpOwogIHZlYzMgbCA9IHZlYzMoMC4wLCAwLjAsIDEuMCk7CiAgZGlmZnVzZUxpZ2h0ICs9IHZlYzMoMS4wLCAxLjAsIDEuMCkgKiBtYXgoZG90KG5vcm1hbCxsKSwgMC4pOwogIHZlYzMgaCA9IG5vcm1hbGl6ZShsICsgdmlld0Rpcik7CiAgZmxvYXQgc3BlY3VsYXJJbnRlbnNpdHkgPSBtYXgoMC4sIHBvdyhtYXgoZG90KG5vcm1hbCwgaCksIDAuKSwgdV9zaGluaW5lc3MpKTsKICBzcGVjdWxhckxpZ2h0ICs9IHZlYzMoMS4wLCAxLjAsIDEuMCkgKiBzcGVjdWxhckludGVuc2l0eTsKICB2ZWMzIGNvbG9yID0gdmVjMygwLjAsIDAuMCwgMC4wKTsKICBjb2xvciArPSBkaWZmdXNlLnJnYiAqIGRpZmZ1c2VMaWdodDsKICBjb2xvciArPSBzcGVjdWxhciAqIHNwZWN1bGFyTGlnaHQ7CiAgY29sb3IgKz0gZW1pc3Npb247CiAgY29sb3IgKz0gYW1iaWVudCAqIGFtYmllbnRMaWdodDsKICBnbF9GcmFnQ29sb3IgPSB2ZWM0KGNvbG9yICogZGlmZnVzZS5hLCBkaWZmdXNlLmEgKiB1X3RyYW5zcGFyZW5jeSk7Cn0K"
+    }
+  },
+  "skins": {},
+  "extensions": {}
+}

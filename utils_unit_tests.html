@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+<script src="vendors/Cesium/Cesium.js"></script>
+<script src="resources/js/utils/utils.js"></script>
+
+<script>
+
+    window.onload = function() {
+
+        function testEarlierTime() {
+            var dateA = new Date('January 1, 2011 12:00:00 EST');
+            var julianDateA = Cesium.JulianDate.fromDate(dateA, new Cesium.JulianDate());
+
+            var dateB = new Date('January 1, 2011 12:00:10 EST');
+            var julianDateB = Cesium.JulianDate.fromDate(dateB, new Cesium.JulianDate());
+
+            if (!(earlierTime(julianDateA, julianDateB) == julianDateA)) {
+                console.log("Error: earlierTime");
+            }
+        }
+
+        function testLaterTime() {
+            var dateA = new Date('January 1, 2011 12:00:00 EST');
+            var julianDateA = Cesium.JulianDate.fromDate(dateA, new Cesium.JulianDate());
+
+            var dateB = new Date('January 1, 2011 12:00:10 EST');
+            var julianDateB = Cesium.JulianDate.fromDate(dateB, new Cesium.JulianDate());
+
+            if (!(laterTime(julianDateA, julianDateB) == julianDateB)) {
+                console.log("Error: laterTime");
+            }
+        }
+
+        function testOverlapInterval() {
+            var timeA0 = Cesium.JulianDate.fromDate(new Date('January 1, 2011 12:00:00 EST'), new Cesium.JulianDate());
+            var timeA1 = Cesium.JulianDate.fromDate(new Date('January 1, 2011 12:00:10 EST'), new Cesium.JulianDate());
+
+            var timeB0 = Cesium.JulianDate.fromDate(new Date('January 1, 2011 12:00:05 EST'), new Cesium.JulianDate());
+            var timeB1 = Cesium.JulianDate.fromDate(new Date('January 1, 2011 12:00:7 EST'), new Cesium.JulianDate());
+
+
+            if (!(intervalsOverlap(timeA0, timeA1, timeB0, timeB1, 3))) {
+                console.log("Error: testOverlapInterval");
+            }
+        }
+
+        function testOverlapInterval_byEpsilonRight() {
+            var timeA0 = Cesium.JulianDate.fromDate(new Date('January 1, 2011 12:00:00 EST'), new Cesium.JulianDate());
+            var timeA1 = Cesium.JulianDate.fromDate(new Date('January 1, 2011 12:00:10 EST'), new Cesium.JulianDate());
+
+            var timeB0 = Cesium.JulianDate.fromDate(new Date('January 1, 2011 12:00:13 EST'), new Cesium.JulianDate());
+            var timeB1 = Cesium.JulianDate.fromDate(new Date('January 1, 2011 12:00:20 EST'), new Cesium.JulianDate());
+
+
+            if (!(intervalsOverlap(timeA0, timeA1, timeB0, timeB1, 10))) {
+                console.log("Error: testOverlapInterval_byEpsilonRight");
+            }
+        }
+
+        function testOverlapInterval_byEpsilonLeft() {
+            var timeA0 = Cesium.JulianDate.fromDate(new Date('January 1, 2011 12:00:20 EST'), new Cesium.JulianDate());
+            var timeA1 = Cesium.JulianDate.fromDate(new Date('January 1, 2011 12:00:30 EST'), new Cesium.JulianDate());
+
+            var timeB0 = Cesium.JulianDate.fromDate(new Date('January 1, 2011 12:00:13 EST'), new Cesium.JulianDate());
+            var timeB1 = Cesium.JulianDate.fromDate(new Date('January 1, 2011 12:00:25 EST'), new Cesium.JulianDate());
+
+
+            if (!(intervalsOverlap(timeA0, timeA1, timeB0, timeB1, 10))) {
+                console.log("Error: testOverlapInterval_byEpsilonLeft");
+            }
+        }
+
+
+        function testOverlapInterval_noOverlap() {
+            var timeA0 = Cesium.JulianDate.fromDate(new Date('January 1, 2011 12:00:20 EST'), new Cesium.JulianDate());
+            var timeA1 = Cesium.JulianDate.fromDate(new Date('January 1, 2011 12:00:30 EST'), new Cesium.JulianDate());
+
+            var timeB0 = Cesium.JulianDate.fromDate(new Date('January 1, 2011 12:10:13 EST'), new Cesium.JulianDate());
+            var timeB1 = Cesium.JulianDate.fromDate(new Date('January 1, 2011 12:10:25 EST'), new Cesium.JulianDate());
+
+
+            if (intervalsOverlap(timeA0, timeA1, timeB0, timeB1, 10)) {
+                console.log("Error: testOverlapInterval_noOverlap");
+            }
+        }
+
+        function testGetDifferenceInSeconds() {
+            var timeA = Cesium.JulianDate.fromDate(new Date('January 1, 2011 12:00:05 EST'), new Cesium.JulianDate());
+            var timeB = Cesium.JulianDate.fromDate(new Date('January 1, 2011 12:00:13 EST'), new Cesium.JulianDate());
+
+
+            if (getSecondsDifference(timeA, timeB) != 8) {
+                console.log("Error: testGetDifferenceInSeconds");
+            }
+            if (getSecondsDifference(timeB, timeA) != -8) {
+                console.log("Error: testGetDifferenceInSeconds");
+            }
+        }
+
+        testEarlierTime();
+        testLaterTime();
+        testOverlapInterval();
+        testOverlapInterval_byEpsilonRight();
+        testOverlapInterval_byEpsilonLeft();
+        testOverlapInterval_noOverlap();
+        testGetDifferenceInSeconds();
+
+
+    }
+</script>
+</body>
+</html>
