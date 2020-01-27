@@ -14,6 +14,17 @@ If you want to use different local data, then change the contents of "sample_dat
 
 ### How do I deploy the website to maritime-n.latrobe.edu.au ###
 
+1. If you want to (you will need to) deploy this on your own dev server, you need a proper web server for it to work properly.
+2. Currently this version of the app is being developed on my Linux machine with the LAMP stack (Linux Apache MySQL PHP)
+3. After setting up your LAMP server, go to root folder (can be accessed within the terminal with cd /var/www/)
+4. Clone the App to the server, in /www/ folder.
+5. Move the default directory to the app folder (as the apache server would have its own hello page):   
+    https://askubuntu.com/questions/337874/change-apache-document-root-folder-to-secondary-hard-drive
+
+6. If anything refer to an earlier version of the the guide right below:
+
+### How do I deploy the website to maritime-n.latrobe.edu.au (OLD) ###
+
 
 1. Merge any changes to the branch * maritime-n-production *
 1. Log on to maritime-n.latrobe.edu.au through putty (port 6022)
@@ -23,21 +34,4 @@ If you want to use different local data, then change the contents of "sample_dat
 1. Type the command ```git pull```
 1. run ```source deploymentscript.sh``` to setup the permissions for the website.
 
-
-### TODO: Arrange the steps for the app ###
-### TODO: Add exception handlings for each component ### 
-### TODO: BUG: app crashes when switch between types of visualization - to investigate further ###
-### TODO: top left icon is broken @TOOLS UI ###
-### TODO: Setting wheel not implemented ###
-### TODO: UPDATE LEFT PANEL <OUTDATED> ###
-### TODO: BUG: components don't have callbacks to each other, fix this ###
-### TODO: Visualization refresh button doens't work - TBD ###
-### Jason Incident is corrupted @Playlists ### 
-# scan for ships in the range of the close encounters
-# TODO: Create scenario button isn't implemented
-
-### DONE ###
-# Set up LAMP server to deploy the dev aisapp on local machine (8hrs)
-# set the html charset (.5hr)
-# utils.js:132:2 : unreachable code after return (.5hr)
 
