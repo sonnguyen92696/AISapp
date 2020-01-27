@@ -22,3 +22,22 @@ If you want to use different local data, then change the contents of "sample_dat
 1. If you are not Jason, then you need to change the url of the origin ```git remote set-url origin https://{YOUR BITBUCKET USER NAME}@bitbucket.org/latrobepmiteam/aisapp.git```
 1. Type the command ```git pull```
 1. run ```source deploymentscript.sh``` to setup the permissions for the website.
+
+
+### TODO: Arrange the steps for the app ###
+### TODO: Add exception handlings for each component ### 
+### TODO: BUG: app crashes when switch between types of visualization - to investigate further ###
+### TODO: top left icon is broken @TOOLS UI ###
+### TODO: Setting wheel not implemented ###
+### TODO: UPDATE LEFT PANEL <OUTDATED> ###
+### TODO: BUG: components don't have callbacks to each other, fix this ###
+### TODO: Visualization refresh button doens't work - TBD ###
+### Jason Incident is corrupted @Playlists ### 
+# scan for ships in the range of the close encounters
+# TODO: Create scenario button isn't implemented
+
+### DONE ###
+# Set up LAMP server to deploy the dev aisapp on local machine (8hrs)
+# set the html charset (.5hr)
+# utils.js:132:2 : unreachable code after return (.5hr)
+

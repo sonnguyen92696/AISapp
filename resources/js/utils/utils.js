@@ -123,7 +123,9 @@ and returns an object {"next": "http...", "first": "http...",...}
 */
 function parseLink ( link ){
   var result = {}
-  return link.split(',').forEach( function( c ){
+  //return 
+  // 6/11/19 fixed code unreached
+  link.split(',').forEach( function( c ){
     var elements = c.match(/<(.*)>.*(rel|REL)=([a-zA-Z]*)/)
     var url = elements[1]
     var rel = elements[3]

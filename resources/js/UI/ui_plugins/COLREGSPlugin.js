@@ -14,7 +14,7 @@ function COLREGSPlugin(){
 }
 
 COLREGSPlugin.prototype.getDetailsHTML = function() {
-    return '<label for="COLREGSPlugin_input_distance">Minimum distance </label><input type="text" style="margin-left: 5px; margin-right:5px;" id="COLREGSPlugin_input_distance" class="fill10" value="500">';
+    return '<label for="COLREGSPlugin_input_distance">Minimum distance </label> <input type="text" style="margin-left: 5px; margin-right:5px;" id="COLREGSPlugin_input_distance" class="fill10" value="500">';
 };
 
 COLREGSPlugin.prototype.getParameters = function() {

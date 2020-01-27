@@ -170,23 +170,23 @@ Application.convertScenarioIntoFilter = function( scenario ){
     console.log(scenario)
     var filter = { session: scenario.idsession };
     //TODO: the webservice is not handling since and till correctly, so until it is fixed, we will disable those parameters
-/*
-    if( "time_start" in scenario && "time_end" in scenario ){
-        filter.since = Math.round(parseDate(scenario.time_start).getTime()/1000);
-        filter.till = Math.round(parseDate(scenario.time_end).getTime()/1000);
-    }
 
-    if( "lat1" in scenario
-        && "lat2" in scenario
-        && "long1" in scenario
-        && "long2" in scenario ){
+    // if( "time_start" in scenario && "time_end" in scenario ){
+    //     filter.since = Math.round(parseDate(scenario.time_start).getTime()/1000);
+    //     filter.till = Math.round(parseDate(scenario.time_end).getTime()/1000);
+    // }
 
-        filter.lat1 = scenario.lat1;
-        filter.lat2 = scenario.lat2;
-        filter.long1 = scenario.long1;
-        filter.long2 = scenario.long2;
-    }
-*/
+    // if( "lat1" in scenario
+    //     && "lat2" in scenario
+    //     && "long1" in scenario
+    //     && "long2" in scenario ){
+
+    //     filter.lat1 = scenario.lat1;
+    //     filter.lat2 = scenario.lat2;
+    //     filter.long1 = scenario.long1;
+    //     filter.long2 = scenario.long2;
+    // }
+
     return filter;
 };
 
